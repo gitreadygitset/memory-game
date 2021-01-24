@@ -1,0 +1,74 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: rgba(247, 210, 171, .9);
+    color: hsla(152, 25%, 40%, 1.0);
+    font-family: 'Patrick Hand', cursive;
+}
+header {
+    height: 150px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+h1 {
+    
+    font-size: 3rem;
+}
+.container {
+  width: 100%;
+  min-width: 700px;
+  height: 600px;
+  display: flex;
+  align-items: top;
+}
+
+.score {
+    display: inline-block;
+    width: 30%;
+}
+h2 {
+    margin-left: 2em;
+    margin-right: 6em;
+    margin-bottom: 3em;
+    font-size: 2rem;
+    
+}
+button {
+    width: 35%;
+    height: 2.5em;
+    margin-left: 50%;
+    margin-top: 4em;
+    font-family: 'Patrick Hand';
+    font-size: 1.5rem;
+    border-radius: 5%;
+    background-color: rgba(47, 160, 107, 0.3);
+    border: 3px solid hsla(347, 40%, 60%)
+}
+.grid-container {
+    display: inline-block;
+    width: 70%;
+    min-width: 550px;
+    height: auto;
+}
+.grid {
+    display: grid;
+    margin: auto;
+    grid-template: repeat(4, 1fr) / repeat(4, minmax(75px, 1fr));
+    grid-gap: 15px;
+    height: 600px;
+    width: 70%;
+}
+.card {
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 3.5rem;
+    border: 5px solid hsla(347, 40%, 60%);
+    border-radius: 5%;
+    background-color:  rgba(47, 160, 107, 0.3);
+}

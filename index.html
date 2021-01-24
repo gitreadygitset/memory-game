@@ -2,37 +2,40 @@
 <html>
     <head>
       <title>Memory Challenge</title>
-      <link type = "text/CSS" href = "style.css" rel = "stylesheet">
-      <script src = "main.js"></script>
+      <link type = "text/CSS" href = "resources/style.css" rel = "stylesheet"/>
+      <link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap" rel="stylesheet">
+      <script src = "./resources/main.js" defer></script>
     </head>
     <body>
         <header>
           <h1>Let's play a memory game!</h1>
         </header>
+        
         <main>
-            <div class = "container" role = "presentation"></div>
+            <div class = "container" role = "presentation">
                 <div class = "score" role = "presentation">
                     <h2>Matches Found:</h2>
                     <h2>Total Guesses:</h2>
+                    <button>Play Again</button>
                 </div>
                 <div class = "grid-container" role = "presentation">
                     <div class = "grid">
-                        <div class = "card"> </div>
-                        <div class = "card"> </div>
-                        <div class = "card"> </div>
-                        <div class = "card"> </div>
-                        <div class = "card"> </div>
-                        <div class = "card"> </div>
-                        <div class = "card"> </div>
-                        <div class = "card"> </div>
-                        <div class = "card"> </div>
-                        <div class = "card"> </div>
-                        <div class = "card"> </div>
-                        <div class = "card"> </div>
-                        <div class = "card"> </div>
-                        <div class = "card"> </div>
-                        <div class = "card"> </div>
-                        <div class = "card"> </div>
+                        <div class = "card" id = "card-1"> </div>
+                        <div class = "card" id = "card-2"> </div>
+                        <div class = "card" id = "card-3"> </div>
+                        <div class = "card" id = "card-4"> </div>
+                        <div class = "card" id = "card-5"> </div>
+                        <div class = "card" id = "card-6"> </div>
+                        <div class = "card" id = "card-7"> </div>
+                        <div class = "card" id = "card-8"> </div>
+                        <div class = "card" id = "card-9"> </div>
+                        <div class = "card" id = "card-10"> </div>
+                        <div class = "card" id = "card-11"> </div>
+                        <div class = "card" id = "card-12"> </div>
+                        <div class = "card" id = "card-13"> </div>
+                        <div class = "card" id = "card-14"> </div>
+                        <div class = "card" id = "card-15"> </div>
+                        <div class = "card" id = "card-16"> </div>
                     </div> 
                 </div>
             </div>
