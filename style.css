@@ -1,0 +1,43 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+div {
+    border: 1px solid green;
+    display: inline-block;
+}
+header {
+    height: 150px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid green;
+}
+h1 {
+   
+}
+}
+.score {
+    display: inline-block;
+}
+h2 {
+    margin-right: 7em;
+    margin-bottom: 3em;
+}
+.grid-container {
+    border: 1px solid black;
+    width: 65%;
+    min-width: 415px;
+}
+.grid {
+    display: grid;
+    margin: auto;
+    grid-template: repeat(4, 1fr) / repeat(4, minmax(50px, 1fr));
+    grid-gap: 15px;
+    height: 600px;
+    width: 70%;
+}
+.card {
+    border: 1px solid red;
+}
