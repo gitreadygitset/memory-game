@@ -11,9 +11,6 @@ function assignScreenAreas(){
 }
 const screenAreas = assignScreenAreas();
 
-//possible values, same for each game
-const cardValues = ['*', '*','?', '?', '!', '!', '#', '#', '&', '&','@', '@', '%', '%', '$', '$'];
-
 //card factory function
 function cardFactory(id, value){
   return {
@@ -22,6 +19,10 @@ function cardFactory(id, value){
     flipped: false
   }
 }
+
+//possible values, same for each game
+const cardValues = ['*', '*','?', '?', '!', '!', '#', '#', '&', '&','@', '@', '%', '%', '$', '$'];
+
 //create 16 card objects with random values using copy of values array, and store in array
 
 function assignValues(){
@@ -41,18 +42,36 @@ function displayValue(event){
   event.target.innerHTML = cards[index].value;
 }
 
-function changeColor(event){
-  event.target.style.backgroundColor = 'Red';
+function checkMatch(cardA, cardB){
+  if (cardA.value == cardB.value) {
+    return true;
+  }
+}
+
+//keep track of number of flipped cards, check for a match when there are 2
+let flippedCards = [];
+let matches = 0;
+
+function flipCard(event){
+  flippedCards.push(event.target);
+  if (flippedCards.length == 2) {
+    let index1 = screenAreas.indexOf(flippedCards[0]);
+    let index2 = screenAreas.indexOf(flippedCards[1]);
+    if (checkMatch(cards[index1], cards[index2])){
+      matches += 1;
+      document.querySelector('h1').innerHTML = "It's a match!";
+    }
+    flippedCards=[];
+  }
 }
 
 allCards.forEach(card => {card.addEventListener('click', displayValue)});
-//screenAreas[0].onclick = changeColor;
+allCards.forEach(card => {card.addEventListener('click', flipCard)})
 
 
-/*function revealCard(event){
-  event.target.style.display = 'flex';
-}
-*/
+//playButton.addEventListener('click', assignValues);
 
-playButton.addEventListener('click', assignValues);
 
+/*function changeColor(event){
+  event.target.style.backgroundColor = 'Red';
+}*/
