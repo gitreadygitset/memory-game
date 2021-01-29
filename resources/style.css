@@ -55,6 +55,7 @@ button {
     width: 70%;
     min-width: 550px;
     height: auto;
+    margin-bottom: 7rem;
 }
 .grid {
     display: grid;
