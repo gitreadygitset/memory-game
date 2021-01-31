@@ -1,12 +1,41 @@
-const allCards = document.querySelectorAll('.card');  
+let allCards;  
 const cardValues = ['*', '*','?', '?', '!', '!', '#', '#', '&', '&','@', '@', '%', '%', '$', '$'];  //possible values, same for each game
-const screenAreas = assignScreenAreas(); //array of HTML .card divs
-const cards = assignValues();  //array of card objects 
-let flippedCards = []; 
-let matches = 0;
-let guesses = 0;
-let activeMatch = false;
-let canHide = false;
+let screenAreas; 
+const matchDisplay = document.getElementById('matches_found');
+const guessDisplay = document.getElementById('total_guesses');
+const resetButton = document.querySelector('button');
+const gridSpace = document.querySelector('.grid');
+const gridView = gridSpace.innerHTML;
+const header = document.querySelector('h1');
+let cards;   
+let flippedCards;
+let matches;
+let guesses;
+let activeMatch;
+setup();
+
+function setup() {
+  allCards = document.querySelectorAll('.card');
+  screenAreas = assignScreenAreas();  //array of HTML .card divs
+  cards = assignValues();  //array of card objects
+  flippedCards = [];
+  matches = 0;
+  guesses = 0;
+  activeMatch = false;
+  gridSpace.className = 'grid';
+  allCards.forEach(card => {card.addEventListener('click', (event) => {
+      if(flippedCards.length === 2){
+        console.log(`There are ${flippedCards.length} cards flipped`);
+          everyTwo();
+      } else {
+          console.log(`There are ${flippedCards.length} cards flipped`);
+          processClick(event);
+      }
+  })
+  });
+  resetButton.addEventListener('click', restart);
+
+}
 
 // create array of buttons corresponding to card locations
 function assignScreenAreas(){
@@ -40,47 +69,40 @@ function assignValues(){
 //When a card is clicked, assign it to targetCard and flip it
 function processClick(event){
     let targetCard = cards[screenAreas.indexOf(event.target)];
-    console.log(`Target card is ${targetCard.id}`);
     let targetScreen = event.target;
-    console.log(`Target div is ${targetScreen.id}`);
     if(!targetCard.flipped && flippedCards.length < 2){
-        console.log(`About to flip ${targetCard.id}`);
         flipCard(targetCard, targetScreen);
     }
 }
 //When a card is flipped, show its value. If it's the second card showing, check for a match
 function flipCard(card, div){
-    console.log (`Flipping ${card.id}`)
     card.flipped = true;
     div.innerHTML = card.value;
     if(flippedCards.length === 1){
         guesses += 1;
-        console.log("About to call check for a match");
+        guessDisplay.innerHTML = `Total Guesses: ${guesses}`;
         checkMatch(flippedCards[0], card);
-        canFlip = true;
+        //canFlip = true;
   }
   flippedCards.push(card);
-  console.log (`Flipped cards: ${flippedCards.length}`);
 }
 
-//When there are two cards showing, check if they match
+//When there are two cards showing, check if they match, increment matches and show match/no match message
 function checkMatch(cardA, cardB){
-    console.log(`Checking for a match between ${cardA.id} and ${cardB.id}`);
     if (cardA.value === cardB.value && cardA.id !== cardB.id) {
       matches++;
-      document.querySelector('h1').innerHTML = "It's a match!";
-      console.log(`${matches} found so far;`)
+      matchDisplay.innerHTML = `Matches Found: ${matches}`;
+      header.innerHTML = "It's a match!";
       activeMatch = true;
-      return true;
     }
     else {
-      document.querySelector('h1').innerHTML = "No match";
+      header.innerHTML = "No match";
       return false;
     }
 }
 
 function everyTwo(){
-    console.log("2 cards have been flipped");
+    console.log('Every two!');
     let div1 = screenAreas[cards.indexOf(flippedCards[0])];
     let div2 = screenAreas[cards.indexOf(flippedCards[1])]; 
     if(activeMatch){
@@ -94,15 +116,28 @@ function everyTwo(){
     flippedCards[0].flipped = false;
     flippedCards[1].flipped = false;
     flippedCards=[];
-    console.log(`There are ${flippedCards.length} cards flipped.`)
+    if(matches === 8){
+      youWin();
+      debugger
+    }
 };
 
+function youWin(){
+  gridSpace.className = 'win';
+  document.querySelector('h1').innerHTML = "";
+  gridSpace.innerHTML = 'You did it!';
+  resetButton.innerHTML = 'Play again';
+}
 
-allCards.forEach(card => {card.addEventListener('click', (event) => {
-    if(flippedCards.length === 2){
-        everyTwo();
-    } else {
-        processClick(event);
-    }
-})
-});
+function restart(){
+  gridSpace.innerHTML = gridView;
+  allCards.forEach(card => {
+    card.style.visibility = 'visible';
+    card.innerHTML = '';
+  });
+  setup();
+  guessDisplay.innerHTML = `Total Guesses: ${guesses}`;
+  matchDisplay.innerHTML = `Matches Found: ${matches}`;
+  header.innerHTML = "Let's play a memory game!";
+  resetButton.innerHTML = 'Start Over';
+}
